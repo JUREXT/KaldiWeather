@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+   // alias(libs.plugins.ksp)
+   // alias(libs.plugins.hilt)
+
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -47,6 +52,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -66,4 +74,24 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
+
+    implementation(libs.network.logging.interceptor)
+    implementation(libs.network.retrofit)
+    implementation(libs.network.retrofit2.kotlin.coroutines.adapter)
+    implementation(libs.network.converter.moshi)
+
+
+    implementation(libs.network.moshi)
+    implementation(libs.network.moshi.kotlin)
+  // // kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+
+   // implementation(libs.hilt.android)
+  //  annotationProcessor(libs.hilt.compiler) // or kapt
+
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+
 }
