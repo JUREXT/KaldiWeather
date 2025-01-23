@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.programming.kaldiweather.repository.SuggestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -28,8 +27,13 @@ class WeatherViewModel @Inject constructor(
 
     init {
         _suggestionViewState.update { SuggestionViewState.Loading }
+        val suggestions = suggestionRepository.getLatestInMemorySuggestedCityList()
         _suggestionViewState.update {
-            SuggestionViewState.Success(suggestions = suggestionRepository.getLatestInMemorySuggestedCityList())
+            if (suggestions.isNotEmpty()) {
+                SuggestionViewState.Success(suggestions = suggestions)
+            } else {
+                SuggestionViewState.Error
+            }
         }
     }
 

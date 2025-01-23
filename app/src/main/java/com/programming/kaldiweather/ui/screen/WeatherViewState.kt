@@ -11,5 +11,6 @@ sealed interface WeatherViewState {
 sealed interface SuggestionViewState {
     data object Idle : SuggestionViewState
     data object Loading : SuggestionViewState
+    data object Error : SuggestionViewState
     data class Success(val suggestions: List<String>) : SuggestionViewState
 }

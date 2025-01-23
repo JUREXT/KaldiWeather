@@ -3,4 +3,5 @@
 
     <string name="suggestion_not_present">No city suggestions available</string>
     <string name="enter_suggestion_city_text">Enter City…</string>
+    <string name="general_error_message">Operation error</string>
 </resources>
