@@ -26,6 +26,9 @@ class WeatherViewModel @Inject constructor(
     private val _suggestionViewState: MutableStateFlow<SuggestionViewState> = MutableStateFlow(SuggestionViewState.Idle)
     val suggestionViewState = _suggestionViewState.asStateFlow()
 
+    private val _searchHistoryViewState: MutableStateFlow<SearchHistoryViewState> = MutableStateFlow(SearchHistoryViewState.Idle)
+    val searchHistoryViewState = _searchHistoryViewState.asStateFlow()
+
     private var job: Job? = null
 
     init {
@@ -38,6 +41,16 @@ class WeatherViewModel @Inject constructor(
                     SuggestionViewState.Success(suggestions = suggestions)
                 } else {
                     SuggestionViewState.Error
+                }
+            }
+
+            val list = listOf("Celje", "Laško", "ljubljana", "Koper", "Celje", "Laško", "ljubljana", "Koper", "Celje", "Laško", "ljubljana", "Koper")
+            val history = list //searchHistoryRepository.getLatestInMemorySearchCityList()
+            _searchHistoryViewState.update {
+                if (history.isNotEmpty()) {
+                    SearchHistoryViewState.Data(history = history)
+                } else {
+                    SearchHistoryViewState.NoData
                 }
             }
         }

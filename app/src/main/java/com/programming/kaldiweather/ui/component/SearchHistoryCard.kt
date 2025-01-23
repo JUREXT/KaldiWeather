@@ -24,7 +24,6 @@ fun SearchHistoryCard(
 ) {
     Card(
         modifier = modifier
-            .padding(5.dp)
             .shadow(8.dp, RoundedCornerShape(8.dp)),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(8.dp),
@@ -46,6 +45,7 @@ fun SearchHistoryCard(
 private fun SearchHistoryCardPreview() {
     KaldiWeatherTheme {
         SearchHistoryCard(
+            modifier = Modifier.padding(5.dp),
             element = "Element"
         )
     }

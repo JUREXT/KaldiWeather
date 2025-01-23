@@ -14,3 +14,9 @@ sealed interface SuggestionViewState {
     data object Error : SuggestionViewState
     data class Success(val suggestions: List<String>) : SuggestionViewState
 }
+
+sealed interface SearchHistoryViewState {
+    data object Idle : SearchHistoryViewState
+    data object NoData : SearchHistoryViewState
+    data class Data(val history: List<String>) : SearchHistoryViewState
+}
