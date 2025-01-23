@@ -1,6 +1,5 @@
 package com.programming.kaldiweather.ui.screen
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +18,8 @@ import com.programming.kaldiweather.ui.theme.KaldiWeatherTheme
 @Composable
 fun WeatherContent(
     viewState: WeatherViewState,
+    suggestionViewState: SuggestionViewState,
+    onSelectedSuggestion: (String) -> Unit,
     onExitClick: () -> Unit
 ) {
     Column(
@@ -41,26 +42,32 @@ fun WeatherContent(
             name = viewState.toString()
         )
 
-        AutoCompleteTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            suggestions = listOf("Celje", "Laško", "Ljubljana", "Koper"),
-            enterSuggestionRes = R.string.enter_suggestion_city_text,
-            nothingEnteredRes = R.string.suggestion_not_present,
-            onSelectedSuggestion = { suggestion ->
-                Log.d("WHAT", "Selected Suggestion: $suggestion")
-            }
-        )
+        if (suggestionViewState is SuggestionViewState.Loading) {
+            // Ignore
+        } else if (suggestionViewState is SuggestionViewState.Success) {
+            AutoCompleteTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+                suggestions = suggestionViewState.suggestions,
+                enterSuggestionRes = R.string.enter_suggestion_city_text,
+                nothingEnteredRes = R.string.suggestion_not_present,
+                onSelectedSuggestion = onSelectedSuggestion
+            )
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun WeatherContentPreview() {
+    val suggestions = listOf("Celje", "Laško", "ljubljana", "Koper")
+
     KaldiWeatherTheme {
         WeatherContent(
             viewState = WeatherViewState.Idle,
+            suggestionViewState = SuggestionViewState.Success(suggestions = suggestions),
+            onSelectedSuggestion = {},
             onExitClick = {}
         )
     }

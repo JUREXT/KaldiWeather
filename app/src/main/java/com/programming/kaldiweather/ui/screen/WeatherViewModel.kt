@@ -21,20 +21,25 @@ class WeatherViewModel @Inject constructor(
     private val _viewState: MutableStateFlow<WeatherViewState> = MutableStateFlow(WeatherViewState.Idle)
     val viewState = _viewState.asStateFlow()
 
+    private val _suggestionViewState: MutableStateFlow<SuggestionViewState> = MutableStateFlow(SuggestionViewState.Idle)
+    val suggestionViewState = _suggestionViewState.asStateFlow()
+
     private var job: Job? = null
 
     init {
-        suggestionRepository.getLatestInMemorySuggestedCityList().forEach {
-            Log.d("WHAT", "Suggested City: $it")
+        _suggestionViewState.update { SuggestionViewState.Loading }
+        _suggestionViewState.update {
+            SuggestionViewState.Success(suggestions = suggestionRepository.getLatestInMemorySuggestedCityList())
         }
     }
 
     fun onSearchWeather(cityName: String) {
+        Log.d("WHAT", "onSearchWeather: $cityName")
         job?.cancel()
         job = viewModelScope.launch {
-            _viewState.update { WeatherViewState.Loading }
-            delay(1500)
-            _viewState.update { WeatherViewState.Exit }
+//            _viewState.update { WeatherViewState.Loading }
+//            delay(1500)
+//            _viewState.update { WeatherViewState.Exit }
         }
     }
 

@@ -12,6 +12,7 @@ fun WeatherScreen(
 ) {
     val viewModel = hiltViewModel<WeatherViewModel>()
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+    val suggestionViewState by viewModel.suggestionViewState.collectAsStateWithLifecycle()
 
     if (viewState == WeatherViewState.Exit) {
         onExit()
@@ -23,6 +24,8 @@ fun WeatherScreen(
 
     WeatherContent(
         viewState = viewState,
+        suggestionViewState = suggestionViewState,
+        onSelectedSuggestion = viewModel::onSearchWeather,
         onExitClick = viewModel::onBack
     )
 }

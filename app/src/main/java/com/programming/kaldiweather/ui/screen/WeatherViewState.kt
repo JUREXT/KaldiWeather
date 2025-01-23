@@ -7,3 +7,9 @@ sealed interface WeatherViewState {
     data class Success(val value: String) : WeatherViewState
     data object Error : WeatherViewState
 }
+
+sealed interface SuggestionViewState {
+    data object Idle : SuggestionViewState
+    data object Loading : SuggestionViewState
+    data class Success(val suggestions: List<String>) : SuggestionViewState
+}
