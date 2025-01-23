@@ -90,7 +90,6 @@ fun AutoCompleteTextField(
                 decorationBox = { innerTextField ->
                     if (textFieldValue.text.isEmpty()) {
                         Text(
-//text = stringResource(id = R.string.enter_suggestion_city_text),
                             text = stringResource(id = enterSuggestionRes),
                             style = TextStyle(color = Color.Gray, fontSize = 18.sp)
                         )
@@ -142,7 +141,6 @@ fun AutoCompleteTextField(
                 }
             } else {
                 Text(
-                    // text = stringResource(id = R.string.suggestion_not_present),
                     text = stringResource(id = nothingEnteredRes),
                     style = TextStyle(color = Color.Gray, fontSize = 16.sp),
                     modifier = Modifier.padding(8.dp)
