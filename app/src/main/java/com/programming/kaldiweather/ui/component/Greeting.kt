@@ -19,7 +19,7 @@ fun GreetingText(
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingTextPreview() {
+private fun GreetingTextPreview() {
     KaldiWeatherTheme {
         GreetingText(name = "Android")
     }
