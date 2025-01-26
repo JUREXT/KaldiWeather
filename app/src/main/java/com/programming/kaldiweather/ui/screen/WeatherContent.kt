@@ -14,6 +14,8 @@ import com.programming.kaldiweather.ui.component.AutoCompleteTextField
 import com.programming.kaldiweather.ui.component.ErrorView
 import com.programming.kaldiweather.ui.component.LoadingView
 import com.programming.kaldiweather.ui.component.SearchHistoryCard
+import com.programming.kaldiweather.ui.component.WeatherDetails
+import com.programming.kaldiweather.ui.domain.model.Weather
 import com.programming.kaldiweather.ui.theme.KaldiWeatherTheme
 
 @Composable
@@ -26,6 +28,8 @@ fun WeatherContent(
 ) {
 
     val suggestions = listOf("Celje", "Laško", "ljubljana", "Koper")
+
+
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -89,6 +93,31 @@ fun WeatherContent(
                 // Ignore
             }
         }
+
+        when(viewState) {
+            WeatherViewState.Error -> {
+                // Ignore
+            }
+            WeatherViewState.Exit -> {
+                // Ignore
+            }
+            WeatherViewState.Idle -> {
+                // Ignore
+            }
+            WeatherViewState.Loading -> LoadingView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+            )
+            is WeatherViewState.Success -> {
+                WeatherDetails(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    weather = viewState.weather
+                )
+            }
+        }
     }
 }
 
@@ -144,6 +173,28 @@ private fun WeatherContentWithSuggestionLoadingAndSearchHistoryPreview() {
     KaldiWeatherTheme {
         WeatherContent(
             viewState = WeatherViewState.Idle,
+            suggestionViewState = SuggestionViewState.Loading,
+            searchHistoryViewState = SearchHistoryViewState.Data(history = list),
+            onSelectedSuggestion = {},
+            onExitClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun WeatherContentWithSuggestionLoadingAndSearchHistoryAndWeatherPreview() {
+    val list = listOf("Celje", "Laško", "ljubljana", "Koper")
+    val weather = Weather(
+        city = "Celje",
+        date = "26.01.2025",
+        maxtemp_c = 23.33,
+        mintemp_c = 2.88
+    )
+
+    KaldiWeatherTheme {
+        WeatherContent(
+            viewState = WeatherViewState.Success(weather = weather),
             suggestionViewState = SuggestionViewState.Loading,
             searchHistoryViewState = SearchHistoryViewState.Data(history = list),
             onSelectedSuggestion = {},

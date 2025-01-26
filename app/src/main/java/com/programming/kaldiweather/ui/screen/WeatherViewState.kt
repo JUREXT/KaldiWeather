@@ -1,10 +1,12 @@
 package com.programming.kaldiweather.ui.screen
 
+import com.programming.kaldiweather.ui.domain.model.Weather
+
 sealed interface WeatherViewState {
     data object Idle : WeatherViewState
     data object Loading : WeatherViewState
     data object Exit : WeatherViewState
-    data class Success(val value: String) : WeatherViewState
+    data class Success(val weather: Weather) : WeatherViewState
     data object Error : WeatherViewState
 }
 

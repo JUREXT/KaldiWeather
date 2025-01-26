@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.programming.kaldiweather.repository.SearchHistoryRepository
 import com.programming.kaldiweather.repository.SuggestionRepository
+import com.programming.kaldiweather.ui.domain.model.Weather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -58,11 +59,19 @@ class WeatherViewModel @Inject constructor(
 
     fun onSearchWeather(cityName: String) {
         Log.d("WHAT", "onSearchWeather: $cityName")
+
+        val weather = Weather(
+            city = cityName,
+            date = "26.01.2025",
+            maxtemp_c = 23.33,
+            mintemp_c = 2.88
+        )
+
         job?.cancel()
         job = viewModelScope.launch {
-//            _viewState.update { WeatherViewState.Loading }
-//            delay(1500)
-//            _viewState.update { WeatherViewState.Exit }
+            _viewState.update { WeatherViewState.Loading }
+            delay(1500)
+            _viewState.update { WeatherViewState.Success(weather = weather) }
         }
     }
 
