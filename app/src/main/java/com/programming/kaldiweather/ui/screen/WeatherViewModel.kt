@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.programming.kaldiweather.repository.SearchHistoryRepository
 import com.programming.kaldiweather.repository.SuggestionRepository
+import com.programming.kaldiweather.repository.weather.WeatherRepository
 import com.programming.kaldiweather.ui.domain.model.Weather
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val suggestionRepository: SuggestionRepository,
-    private val searchHistoryRepository: SearchHistoryRepository
+    private val searchHistoryRepository: SearchHistoryRepository,
+    private val weatherRepository: WeatherRepository
 ) : ViewModel() {
 
     private val _viewState: MutableStateFlow<WeatherViewState> = MutableStateFlow(WeatherViewState.Idle)
@@ -59,6 +61,11 @@ class WeatherViewModel @Inject constructor(
 
     fun onSearchWeather(cityName: String) {
         Log.d("WHAT", "onSearchWeather: $cityName")
+
+        viewModelScope.launch {
+            val city = weatherRepository.getCityData(cityName = cityName)
+            Log.d("WHAT", "City: $city")
+        }
 
         val weather = Weather(
             city = cityName,
