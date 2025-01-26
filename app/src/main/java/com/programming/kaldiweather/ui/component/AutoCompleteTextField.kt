@@ -25,10 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
@@ -52,7 +51,7 @@ fun AutoCompleteTextField(
     var filteredSuggestions by remember { mutableStateOf(suggestions) }
     var showSuggestions by remember { mutableStateOf(false) }
 
-    val focusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = modifier,
@@ -83,8 +82,7 @@ fun AutoCompleteTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.White)
-                    .padding(16.dp)
-                    .focusRequester(focusRequester),
+                    .padding(16.dp),
                 textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
                 cursorBrush = SolidColor(Color.Blue),
                 decorationBox = { innerTextField ->
@@ -97,10 +95,6 @@ fun AutoCompleteTextField(
                     innerTextField()
                 }
             )
-        }
-
-        LaunchedEffect(Unit) {
-            focusRequester.requestFocus()
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -127,6 +121,8 @@ fun AutoCompleteTextField(
                                         selection = TextRange(suggestion.length)
                                     )
                                     showSuggestions = false
+
+                                    keyboardController?.hide()
                                     onSelectedSuggestion(suggestion)
                                 }
                                 .padding(12.dp)
