@@ -14,16 +14,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.programming.kaldiweather.R
-import com.programming.kaldiweather.ui.domain.model.Weather
+import com.programming.kaldiweather.ui.domain.model.Forecast
+import com.programming.kaldiweather.ui.domain.model.UnitType
+import com.programming.kaldiweather.ui.extension.toHumanReadableValue
 import com.programming.kaldiweather.ui.theme.KaldiWeatherTheme
 
 @Composable
 fun WeatherDetails(
     modifier: Modifier = Modifier,
-    weather: Weather
+    forecast: Forecast
 ) {
-    val unitC = stringResource(id = R.string.temp_unit_celsius)
-
     ElevatedCard(
         modifier = modifier,
         elevation = CardDefaults.cardElevation(
@@ -36,16 +36,42 @@ fun WeatherDetails(
         ) {
             Text(
                 modifier = Modifier.padding(5.dp),
-                text = weather.city, fontSize = 24.sp
+                text = stringResource(id = R.string.forecast_details_temperature),
+                fontSize = 24.sp
             )
             Text(
-                modifier = Modifier.padding(horizontal = 5.dp),
-                text = "${weather.maxtemp_c} $unitC",
+                modifier = Modifier.padding(5.dp),
+                text = forecast.temperature.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
                 fontSize = 64.sp
             )
             Text(
+                modifier = Modifier.padding(5.dp),
+                text = stringResource(id = R.string.forecast_details_temperature_max),
+                fontSize = 24.sp
+            )
+            Text(
                 modifier = Modifier.padding(horizontal = 5.dp),
-                text = "${weather.mintemp_c} $unitC",
+                text = forecast.temperatureMax.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
+                fontSize = 64.sp
+            )
+            Text(
+                modifier = Modifier.padding(5.dp),
+                text = stringResource(id = R.string.forecast_details_temperature_feels_like),
+                fontSize = 24.sp
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 5.dp),
+                text = forecast.feelsLikeTemperature.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
+                fontSize = 64.sp
+            )
+            Text(
+                modifier = Modifier.padding(5.dp),
+                text = stringResource(id = R.string.forecast_details_humidity),
+                fontSize = 24.sp
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 5.dp),
+                text = forecast.relativeHumidity.toHumanReadableValue(unit = stringResource(id = UnitType.Humidity.unitRes)),
                 fontSize = 64.sp
             )
         }
@@ -55,11 +81,11 @@ fun WeatherDetails(
 @Preview(showBackground = true)
 @Composable
 private fun GreetingTextPreview() {
-    val weather = Weather(
-        city = "Celje",
-        date = "26.01.2025",
-        maxtemp_c = 23.33,
-        mintemp_c = 2.88
+    val forecast = Forecast(
+        temperature = 10.233,
+        temperatureMax = 23.1458,
+        relativeHumidity = 45.68,
+        feelsLikeTemperature = 19.5687
     )
 
     KaldiWeatherTheme {
@@ -67,7 +93,7 @@ private fun GreetingTextPreview() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(20.dp),
-            weather = weather
+            forecast = forecast
         )
     }
 }
