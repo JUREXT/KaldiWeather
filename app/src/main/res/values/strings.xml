@@ -4,7 +4,16 @@
     <string name="suggestion_not_present">No city suggestions available</string>
     <string name="enter_suggestion_city_text">Enter City…</string>
     <string name="general_error_message">Operation error</string>
+    <string name="connection_error_message">Offline..check connection.</string>
     <string name="general_loading_message">Loading…</string>
 
-    <string name="temp_unit_celsius">°C</string>
+    <string name="unit_temperature">°C</string>
+    <string name="unit_humidity">%</string>
+
+    <string name="forecast_details_temperature">Temperature</string>
+    <string name="forecast_details_temperature_max">Temperature Max</string>
+    <string name="forecast_details_temperature_feels_like">Feels Like Temperature</string>
+    <string name="forecast_details_humidity">Relative Humidity</string>
+
+
 </resources>
