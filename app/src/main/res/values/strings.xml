@@ -15,5 +15,8 @@
     <string name="forecast_details_temperature_feels_like">Feels Like Temperature</string>
     <string name="forecast_details_humidity">Relative Humidity</string>
 
-
+    <string name="connection_status_available">Online</string>
+    <string name="connection_status_unavailable">No internet connection</string>
+    <string name="connection_status_losing">Internet connection lost</string>
+    <string name="connection_status_lost">No internet connection</string>
 </resources>
