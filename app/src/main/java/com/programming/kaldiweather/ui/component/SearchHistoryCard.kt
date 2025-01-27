@@ -1,6 +1,7 @@
 package com.programming.kaldiweather.ui.component
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +22,8 @@ import com.programming.kaldiweather.ui.theme.KaldiWeatherTheme
 @Composable
 fun SearchHistoryCard(
     modifier: Modifier = Modifier,
-    element: String
+    element: String,
+    onSelected: (String) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -32,6 +35,12 @@ fun SearchHistoryCard(
         Text(
             text = element,
             modifier = Modifier
+                .clickable(
+                    role = Role.Button,
+                    onClick = {
+                        onSelected(element)
+                    }
+                )
                 .wrapContentHeight()
                 .padding(5.dp),
             textAlign = TextAlign.Center,
@@ -46,7 +55,8 @@ private fun SearchHistoryCardPreview() {
     KaldiWeatherTheme {
         SearchHistoryCard(
             modifier = Modifier.padding(5.dp),
-            element = "Element"
+            element = "Element",
+            onSelected = {}
         )
     }
 }
