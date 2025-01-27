@@ -1,7 +1,8 @@
 package com.programming.kaldiweather.repository
 
+import kotlinx.coroutines.flow.StateFlow
+
 interface SearchHistoryRepository {
-    fun getLatestInMemorySearchCityList(): List<String>
-    fun addIntoInMemorySearchCityList(city: String)
-    fun clearInMemorySearchCityList()
+    fun getHistorySearchedCityFlow(): StateFlow<List<String>>
+    fun addToCityHistorySearched(city: String)
 }
