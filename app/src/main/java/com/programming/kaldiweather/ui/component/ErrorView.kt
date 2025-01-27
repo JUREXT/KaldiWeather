@@ -1,5 +1,6 @@
 package com.programming.kaldiweather.ui.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,8 +26,11 @@ import com.programming.kaldiweather.ui.theme.KaldiWeatherTheme
 
 @Composable
 fun ErrorView(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    @StringRes errorMessageRes: Int? = null
 ) {
+    val errorRes = errorMessageRes ?: R.string.general_error_message
+
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -39,7 +43,7 @@ fun ErrorView(
             modifier = Modifier.size(30.dp)
         )
         Text(
-            text = stringResource(id = R.string.general_error_message),
+            text = stringResource(id = errorRes),
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -54,7 +58,8 @@ fun ErrorView(
 private fun ErrorViewPreview() {
     KaldiWeatherTheme {
         ErrorView(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            errorMessageRes = R.string.connection_error_message
         )
     }
 }
