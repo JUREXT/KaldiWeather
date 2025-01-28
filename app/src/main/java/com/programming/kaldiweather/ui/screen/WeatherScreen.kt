@@ -9,7 +9,8 @@ import com.programming.kaldiweather.connection.ConnectivityObserver.Connectivity
 
 @Composable
 fun WeatherScreen(
-    onExit: () -> Unit
+    onExit: () -> Unit,
+    onOpenSettings: () -> Unit
 ) {
     val viewModel = hiltViewModel<WeatherViewModel>()
     val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -31,6 +32,8 @@ fun WeatherScreen(
         searchHistoryViewState = searchHistoryViewState,
         connectivityStatus = connectivityStatus,
         onSelectedSuggestion = viewModel::onSearchWeather,
-        onSelectedHistory = viewModel::onSearchWeather
+        onSelectedHistory = viewModel::onSearchWeather,
+        onOpenSettings = onOpenSettings,
+        onGetLocation = viewModel::onGetLocation
     )
 }

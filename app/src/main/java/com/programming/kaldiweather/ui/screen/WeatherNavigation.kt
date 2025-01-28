@@ -5,11 +5,13 @@ import androidx.navigation.compose.composable
 import com.programming.kaldiweather.ui.NavRoutes
 
 fun NavGraphBuilder.weatherScreen(
-    onExit: () -> Unit
+    onExit: () -> Unit,
+    onOpenSettings: () -> Unit
 ) {
     composable<NavRoutes.WeatherRoute> {
         WeatherScreen(
-            onExit = onExit
+            onExit = onExit,
+            onOpenSettings = onOpenSettings
         )
     }
 }

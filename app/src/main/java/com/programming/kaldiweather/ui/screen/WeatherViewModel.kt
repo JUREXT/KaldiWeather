@@ -3,6 +3,7 @@ package com.programming.kaldiweather.ui.screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.programming.kaldiweather.connection.ConnectivityObserver
+import com.programming.kaldiweather.location.LocationProvider
 import com.programming.kaldiweather.repository.SearchHistoryRepository
 import com.programming.kaldiweather.repository.SuggestionRepository
 import com.programming.kaldiweather.repository.weather.WeatherRepository
@@ -21,6 +22,7 @@ class WeatherViewModel @Inject constructor(
     private val suggestionRepository: SuggestionRepository,
     private val searchHistoryRepository: SearchHistoryRepository,
     private val weatherRepository: WeatherRepository,
+    private val locationProvider: LocationProvider,
     val connectivityObserver: ConnectivityObserver
 ) : ViewModel() {
 
@@ -60,18 +62,37 @@ class WeatherViewModel @Inject constructor(
             if (city == null) {
                 _viewState.update { WeatherViewState.Error }
             } else {
-                val forecast = weatherRepository.getForecast(
-                    latitude = city.latitude,
-                    longitude = city.longitude
-                )
-                if (forecast == null) {
-                    _viewState.update { WeatherViewState.Error }
-                } else {
-                    searchHistoryRepository.addToCityHistorySearched(city = cityName)
-                    _viewState.update { WeatherViewState.Success(forecast = forecast) }
-                }
+                getForecast(cityName = cityName, latitude = city.latitude, longitude = city.longitude)
             }
         }
+    }
+
+    private fun getForecast(cityName: String? = null, latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            val forecast = weatherRepository.getForecast(
+                latitude = latitude,
+                longitude = longitude
+            )
+            if (forecast == null) {
+                _viewState.update { WeatherViewState.Error }
+            } else {
+                cityName?.let {
+                    searchHistoryRepository.addToCityHistorySearched(city = it)
+                }
+                _viewState.update { WeatherViewState.Success(forecast = forecast) }
+            }
+        }
+    }
+
+    fun onGetLocation() {
+        locationProvider.getLastKnownLocation(
+            onSuccess = { latitude, longitude ->
+                getForecast(latitude = latitude, longitude = longitude)
+            },
+            onFailure = { e ->
+                e.printStackTrace()
+            }
+        )
     }
 
     fun onBack() {

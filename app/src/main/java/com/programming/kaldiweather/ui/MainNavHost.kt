@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.programming.kaldiweather.ui.extension.findActivity
 import com.programming.kaldiweather.ui.screen.weatherScreen
+import com.programming.kaldiweather.util.IntentUtils
 
 @Composable
 fun MainNavHost(
@@ -23,6 +24,9 @@ fun MainNavHost(
         weatherScreen(
             onExit = {
                 activity.finish()
+            },
+            onOpenSettings = {
+                IntentUtils.openSettings(activity = activity)
             }
         )
     }
