@@ -31,4 +31,6 @@
     <string name="coarse_location_enable_now">Enable</string>
     <string name="coarse_location_continue_without">Cancel</string>
 
+    <string name="user_location_forecast">My City Forecast</string>
+
 </resources>

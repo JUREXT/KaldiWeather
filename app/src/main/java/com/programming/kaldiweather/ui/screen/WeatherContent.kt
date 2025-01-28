@@ -1,12 +1,18 @@
 package com.programming.kaldiweather.ui.screen
 
 import android.content.Context
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -15,8 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import com.programming.kaldiweather.R
 import com.programming.kaldiweather.connection.ConnectivityObserver
@@ -52,6 +61,13 @@ fun WeatherContent(
         mutableStateOf(LocationPermissionHelper.Status.NOT_ACCEPTED)
     }
 
+    val isLocationEnabled = context.isLocationEnabled()
+    LaunchedEffect(isLocationEnabled) {
+        if (isLocationEnabled) {
+            warningDialogForLocationEnabledState = LocationPermissionHelper.Status.ACCEPTED
+        }
+    }
+
     ComposableLifecycle { _, event ->
         if (event == Lifecycle.Event.ON_RESUME) {
             handleLocationState(
@@ -68,7 +84,9 @@ fun WeatherContent(
     }
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
     ) {
         if (warningDialogForCoarseLocationState == LocationPermissionHelper.Status.NOT_ACCEPTED) {
             WarningDialog(
@@ -173,6 +191,26 @@ fun WeatherContent(
                     }
                 }
             }
+        }
+
+        if (warningDialogForCoarseLocationState == LocationPermissionHelper.Status.ACCEPTED &&
+            warningDialogForLocationEnabledState == LocationPermissionHelper.Status.ACCEPTED
+        ) {
+            Text(
+                text = stringResource(id = R.string.user_location_forecast),
+                style = TextStyle.Default,
+                fontSize = 24.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .background(Color.Black)
+                    .border(width = 3.dp, color = Color.White, shape = RoundedCornerShape(10.dp))
+                    .fillMaxWidth()
+                    .padding(all = 10.dp)
+                    .clickable(
+                        role = Role.Button,
+                        onClick = onGetLocation
+                    )
+            )
         }
 
         when (viewState) {
