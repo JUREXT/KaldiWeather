@@ -6,6 +6,7 @@
     <string name="general_error_message">Operation error</string>
     <string name="connection_error_message">Offline..check connection.</string>
     <string name="general_loading_message">Loading…</string>
+    <string name="general_cancel">Cancel</string>
 
     <string name="unit_temperature">°C</string>
     <string name="unit_humidity">%</string>
@@ -17,6 +18,17 @@
 
     <string name="connection_status_available">Online</string>
     <string name="connection_status_unavailable">No internet connection</string>
-    <string name="connection_status_losing">Internet connection lost</string>
-    <string name="connection_status_lost">No internet connection</string>
+    <string name="connection_status_losing">Internet connection interrupted</string>
+    <string name="connection_status_lost">Internet connection lost</string>
+
+    <string name="location_enable_location">Enable location in settings</string>
+    <string name="location_required_for_this_app">Location required to show weather forecast</string>
+    <string name="location_enable_now">Enable</string>
+    <string name="location_continue_without">Cancel</string>
+
+    <string name="coarse_location_enable_location">Allow to use current location to show forecast for your city?</string>
+    <string name="coarse_location_required_for_this_app">Location required to show weather forecast</string>
+    <string name="coarse_location_enable_now">Enable</string>
+    <string name="coarse_location_continue_without">Cancel</string>
+
 </resources>
