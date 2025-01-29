@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -131,11 +130,7 @@ fun WeatherContent(
 
         when (connectivityStatus) {
             ConnectivityObserver.ConnectivityStatus.Available -> {
-                StatusView(
-                    modifier = Modifier.fillMaxWidth(),
-                    errorMessageRes = connectivityStatus.messageRes,
-                    color = Color.Green
-                )
+                // Ignore
             }
 
             ConnectivityObserver.ConnectivityStatus.Unavailable -> {
