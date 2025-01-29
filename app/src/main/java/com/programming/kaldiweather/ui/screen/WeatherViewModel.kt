@@ -69,6 +69,7 @@ class WeatherViewModel @Inject constructor(
 
     private fun getForecast(cityName: String? = null, latitude: Double, longitude: Double) {
         viewModelScope.launch {
+            _viewState.update { WeatherViewState.Loading } 
             val forecast = weatherRepository.getForecast(
                 latitude = latitude,
                 longitude = longitude
