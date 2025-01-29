@@ -42,7 +42,7 @@ fun WeatherDetails(
             Text(
                 modifier = Modifier.padding(5.dp),
                 text = forecast.temperature.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
-                fontSize = 64.sp
+                fontSize = 55.sp
             )
             Text(
                 modifier = Modifier.padding(5.dp),
@@ -52,7 +52,7 @@ fun WeatherDetails(
             Text(
                 modifier = Modifier.padding(horizontal = 5.dp),
                 text = forecast.temperatureMax.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
-                fontSize = 64.sp
+                fontSize = 55.sp
             )
             Text(
                 modifier = Modifier.padding(5.dp),
@@ -62,7 +62,7 @@ fun WeatherDetails(
             Text(
                 modifier = Modifier.padding(horizontal = 5.dp),
                 text = forecast.temperatureMin.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
-                fontSize = 64.sp
+                fontSize = 55.sp
             )
             Text(
                 modifier = Modifier.padding(5.dp),
@@ -72,7 +72,7 @@ fun WeatherDetails(
             Text(
                 modifier = Modifier.padding(horizontal = 5.dp),
                 text = forecast.feelsLikeTemperature.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
-                fontSize = 64.sp
+                fontSize = 55.sp
             )
             Text(
                 modifier = Modifier.padding(5.dp),
@@ -82,7 +82,7 @@ fun WeatherDetails(
             Text(
                 modifier = Modifier.padding(horizontal = 5.dp),
                 text = forecast.relativeHumidity.toHumanReadableValue(unit = stringResource(id = UnitType.Humidity.unitRes)),
-                fontSize = 64.sp
+                fontSize = 55.sp
             )
         }
     }
