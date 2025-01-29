@@ -56,6 +56,16 @@ fun WeatherDetails(
             )
             Text(
                 modifier = Modifier.padding(5.dp),
+                text = stringResource(id = R.string.forecast_details_temperature_min),
+                fontSize = 24.sp
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 5.dp),
+                text = forecast.temperatureMin.toHumanReadableValue(unit = stringResource(id = UnitType.Temperature.unitRes)),
+                fontSize = 64.sp
+            )
+            Text(
+                modifier = Modifier.padding(5.dp),
                 text = stringResource(id = R.string.forecast_details_temperature_feels_like),
                 fontSize = 24.sp
             )
@@ -84,6 +94,7 @@ private fun GreetingTextPreview() {
     val forecast = Forecast(
         temperature = 10.233,
         temperatureMax = 23.1458,
+        temperatureMin = 18.22,
         relativeHumidity = 45.68,
         feelsLikeTemperature = 19.5687
     )

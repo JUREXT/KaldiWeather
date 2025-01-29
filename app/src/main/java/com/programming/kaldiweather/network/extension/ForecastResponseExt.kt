@@ -7,6 +7,7 @@ fun ForecastResponse.toForecast(): Forecast {
     return Forecast(
         temperature = this.hourlyForecast.temperature2m.average(),
         temperatureMax = this.hourlyForecast.temperature2m.max(),
+        temperatureMin = this.hourlyForecast.temperature2m.min(),
         relativeHumidity = this.hourlyForecast.relativeHumidity2m.average(),
         feelsLikeTemperature = this.hourlyForecast.apparentTemperature.average()
     )

@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -213,30 +216,36 @@ fun WeatherContent(
             )
         }
 
-        when (viewState) {
-            WeatherViewState.Error -> {
-                // Ignore
-            }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+        ) {
+            when (viewState) {
+                WeatherViewState.Error -> {
+                    // Ignore
+                }
 
-            WeatherViewState.Exit -> {
-                // Ignore
-            }
+                WeatherViewState.Exit -> {
+                    // Ignore
+                }
 
-            WeatherViewState.Idle -> {
-                // Ignore
-            }
+                WeatherViewState.Idle -> {
+                    // Ignore
+                }
 
-            WeatherViewState.Loading -> LoadingView(
-                modifier = Modifier.fillMaxSize()
-            )
-
-            is WeatherViewState.Success -> {
-                WeatherDetails(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    forecast = viewState.forecast
+                WeatherViewState.Loading -> LoadingView(
+                    modifier = Modifier.fillMaxSize()
                 )
+
+                is WeatherViewState.Success -> {
+                    WeatherDetails(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp),
+                        forecast = viewState.forecast
+                    )
+                }
             }
         }
     }
@@ -341,6 +350,7 @@ private fun WeatherContentWithSuggestionLoadingAndSearchHistoryAndWeatherPreview
     val forecast = Forecast(
         temperature = 10.233,
         temperatureMax = 23.1458,
+        temperatureMin = 18.22,
         relativeHumidity = 45.68,
         feelsLikeTemperature = 19.5687
     )
